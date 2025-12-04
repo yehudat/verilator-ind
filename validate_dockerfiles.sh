@@ -38,7 +38,3 @@ if ! grep -q "gtkwave" "Dockerfile"; then
 else
     echo "  ✓ GTKWave installation found"
 fi
-
-echo "All Dockerfiles validated successfully!"
-echo "  docker build -f Dockerfile.quick -t verilator-gtkwave:quick . # Quick"
-echo "  docker build -t verilator-gtkwave:latest .                    # Full"
