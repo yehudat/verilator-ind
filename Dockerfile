@@ -54,6 +54,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends \
+        zsh \
         perl \
         python3 \
         libgoogle-perftools-dev \
@@ -63,7 +64,6 @@ RUN \
         help2man \
         gtkwave \
         ca-certificates \
-        wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Verilator install from build stage
@@ -83,4 +83,4 @@ RUN \
 
 WORKDIR /project
 
-CMD ["/bin/bash"]
+CMD ["/bin/zsh"]
