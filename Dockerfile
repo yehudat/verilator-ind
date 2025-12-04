@@ -46,6 +46,7 @@
 # Stage 2: Runtime image (lighter) with Verilator + GTKWave
 # ------------------------------------------------------------
 #FROM debian:trixie-slim
+FROM verilator/verilator:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
