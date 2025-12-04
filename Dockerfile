@@ -51,9 +51,9 @@ FROM verilator/verilator:latest
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Runtime dependencies only (no compilers, no dev headers)
-RUN apt-get update && \
+RUN \
+    apt-get update && \
     apt-get install -y --no-install-recommends \
-        # Verilator runtime deps
         perl \
         python3 \
         libgoogle-perftools-dev \
@@ -61,9 +61,7 @@ RUN apt-get update && \
         libfl2 \
         zlib1g \
         help2man \
-        # Wave viewer
         gtkwave \
-        # Utilities
         ca-certificates \
         wget \
     && rm -rf /var/lib/apt/lists/*
@@ -77,12 +75,12 @@ ENV VERILATOR_ROOT=/usr/local/share/verilator
 ENV PATH="/usr/local/bin:${PATH}"
 
 # Optional: sanity check during build (can be removed if you care about size)
-RUN echo "=== Verilator Version ===" && \
+RUN \
+    echo "=== Verilator Version ===" && \
     verilator --version && \
     echo "=== GTKWave Version ===" && \
     gtkwave --version 2>&1 | head -1 || echo "GTKWave installed"
 
-# Project workspace
 WORKDIR /project
 
 CMD ["/bin/bash"]
