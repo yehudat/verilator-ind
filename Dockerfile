@@ -81,6 +81,12 @@ RUN \
     echo "=== GTKWave Version ===" && \
     gtkwave --version 2>&1 | head -1 || echo "GTKWave installed"
 
-WORKDIR /project
+# Create arbitrary (1100) fixed devuser/group in image. MacOS always
+# assigns your MacOS $GID & $UID, regardless of container's user parameters
+RUN \
+    groupadd -g 1100 devuser && \
+    useradd -m -u 1100 -g devuser -s /usr/bin/zsh devuser
+USER devuser
+WORKDIR /home/devuser
 
 CMD ["/bin/zsh"]
