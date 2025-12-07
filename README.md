@@ -6,13 +6,13 @@ A complete Dockerized development environment with the latest Verilator and GTKW
 
 - **Verilator**: Latest version built from source
 - **GTKWave**: Open-source waveform viewer
-- **Example Project**: Counter module with testbench
+- **Testing Project**: Counter module with testbench
 
 ## Prerequisites
 
 - Docker
-- Docker Compose (optional but recommended)
-- X11 server (for GUI on Linux) or XQuartz (for macOS)
+- Docker Compose
+- X11 server
 
 ## Testing the Setup
 
@@ -27,6 +27,7 @@ chmod +x test.sh
 ```
 
 Expected output:
+
 ```
 ==========================================
 Testing Verilator Docker Container
@@ -53,32 +54,16 @@ All tests passed! ✓
 
 ### 1. Build the Docker Image
 
-**Option A: Automated Build & Test (Recommended)**
-```bash
-./build_and_test.sh
-```
-This script will guide you through the build process and optionally run a test simulation.
+This script will guide you through the Docker-Compose build process and optionally run a test simulation.
 
-**Option B: Quick Build (Ubuntu Packages)**
-```bash
-# Fastest option - uses pre-built packages from Ubuntu repos
-docker build -f Dockerfile.quick -t verilator-gtkwave:quick .
-```
-
-**Option C: Full Build (Latest from Source)**
-```bash
-# Builds latest Verilator from source - takes 5-10 minutes
-docker build -t verilator-gtkwave:latest .
-```
-
-**Option D: Using Docker Compose**
 ```bash
 docker-compose build
 ```
 
 ### 2. Run the Container
 
-**Linux:**
+#### **Linux
+
 ```bash
 # Allow X11 connections
 xhost +local:docker
@@ -94,7 +79,8 @@ docker run -it --rm \
   verilator-gtkwave:latest
 ```
 
-**macOS:**
+#### **macOS
+
 ```bash
 # Start XQuartz and allow connections
 # In XQuartz preferences, enable "Allow connections from network clients"
@@ -109,17 +95,6 @@ xhost + $IP
 docker run -it --rm \
   -v $(pwd)/project:/project \
   -e DISPLAY=$IP:0 \
-  verilator-gtkwave:latest
-```
-
-**Windows (WSL2):**
-```bash
-# Install VcXsrv or similar X server
-# Allow connections in firewall
-
-docker run -it --rm \
-  -v $(pwd)/project:/project \
-  -e DISPLAY=host.docker.internal:0 \
   verilator-gtkwave:latest
 ```
 
@@ -256,10 +231,7 @@ docker-compose build --no-cache
 Edit the Makefile to add custom flags:
 
 ```makefile
-VFLAGS = --cc --exe --build --trace \
-         --timing \
-         -Wall \
-         -Wno-fatal
+VFLAGS = --cc --exe --build --trace --timing -Wall -Wno-fatal
 ```
 
 ### Using SystemVerilog
@@ -283,7 +255,3 @@ verilator --cc --exe --build --trace --profile-cfuncs design.v testbench.cpp
 - [Verilator Documentation](https://verilator.org/guide/latest/)
 - [GTKWave Documentation](http://gtkwave.sourceforge.net/)
 - [Verilator GitHub](https://github.com/verilator/verilator)
-
-## License
-
-This Docker configuration is provided as-is for educational and development purposes.
