@@ -3,7 +3,7 @@ version: '3.8'
 services:
   verilator:
     build: .
-    image: verilator-gtkwave:latest
+    image: verilator/verilator:latest
     container_name: verilator-dev
     volumes:
       - ./project:/project
