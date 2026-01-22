@@ -10,7 +10,7 @@ if ! docker info > /dev/null 2>&1; then
 fi
 
 # Build if needed
-if ! docker images | grep -q verilator-gtkwave; then
+if ! docker images | grep -q verilator; then
     echo "Building Docker image..."
     docker-compose build
 fi
@@ -28,7 +28,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     docker run -it --rm \
         -v $(pwd)/project:/project \
         -e DISPLAY=$IP:0 \
-        verilator-gtkwave:latest
+        verilator/verilator:latest
 else
     echo "For Windows/WSL2, please run docker-compose manually"
     docker-compose run --rm verilator
