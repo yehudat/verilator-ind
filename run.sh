@@ -28,7 +28,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     docker run -it --rm \
         -v $(pwd)/project:/project \
         -e DISPLAY=$IP:0 \
-        verilator/verilator:latest
+        yehudats/verilator-dev:latest
 else
     echo "For Windows/WSL2, please run docker-compose manually"
     docker-compose run --rm verilator
