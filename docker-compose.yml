@@ -3,7 +3,7 @@ version: '3.8'
 services:
   verilator:
     build: .
-    image: verilator/verilator:latest
+    image: yehudats/verilator-dev:latest
     container_name: verilator-dev
     volumes:
       - ./project:/project

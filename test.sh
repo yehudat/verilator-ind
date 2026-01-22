@@ -10,7 +10,7 @@ echo ""
 
 # Test 1: Check Verilator version
 echo "Test 1: Checking Verilator version..."
-docker run --rm verilator/verilator:latest verilator --version
+docker run --rm yehudats/verilator-dev:latest verilator --version
 if [ $? -eq 0 ]; then
     echo "✓ Verilator is installed and working"
 else
@@ -21,7 +21,7 @@ echo ""
 
 # Test 2: Check GTKWave
 echo "Test 2: Checking GTKWave installation..."
-docker run --rm verilator/verilator:latest which gtkwave
+docker run --rm yehudats/verilator-dev:latest which gtkwave
 if [ $? -eq 0 ]; then
     echo "✓ GTKWave is installed"
 else
@@ -34,7 +34,7 @@ echo ""
 echo "Test 3: Running example simulation..."
 docker run --rm \
     -v $(pwd)/project:/project \
-    verilator/verilator:latest \
+    yehudats/verilator-dev:latest \
     bash -c "cd /project && make clean && make sim"
 
 if [ $? -eq 0 ] && [ -f project/counter.vcd ]; then
